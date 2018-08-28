@@ -17,10 +17,7 @@
         "test": "jest",
         "test:cov": "jest --coverage",
         "test:e2e": "jest --config ./test/jest-e2e.json",
-        "webpack": "webpack --config webpack.config.js",
-        "build-heroku": "tsc --project ./tsconfig.json",
-        "start-heroku": "node dist/main.js",
-        "postinstall": "npm run build"
+        "webpack": "webpack --config webpack.config.js"
     },
     "dependencies": {
         "@nestjs/common": "^5.0.0",
