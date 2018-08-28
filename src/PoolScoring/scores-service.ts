@@ -17,7 +17,7 @@ export class ScoresService {
     }
 
     async addScore(addScoreModel: AddScoreModel) {
-        const score: Score = {
+        const score: any = {
             winner: addScoreModel.winner,
             breaker: addScoreModel.breaker,
             ballsLeft: addScoreModel.ballsLeft,

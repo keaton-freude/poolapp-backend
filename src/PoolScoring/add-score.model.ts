@@ -15,4 +15,5 @@ export class AddScoreModel {
     easyPocket: boolean;
     @IsNumber()
     ballsLeft: number;
+    id?: number;
 }

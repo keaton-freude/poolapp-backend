@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { PoolScoringModule } from 'PoolScoring/pool-scoring.module';
+import { PoolScoringModule } from './PoolScoring/pool-scoring.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
