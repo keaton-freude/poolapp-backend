@@ -7,6 +7,9 @@ async function bootstrap() {
         logger: console,
     });
     app.useGlobalPipes(new ValidationPipe());
-    await app.listen(3000);
+    const NEST_PORT = process.env.PORT || 3000;
+    // tslint:disable-next-line:no-console
+    console.log(`Listening on ${NEST_PORT}`);
+    await app.listen(NEST_PORT);
 }
 bootstrap();
