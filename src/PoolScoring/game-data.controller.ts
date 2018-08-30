@@ -13,4 +13,10 @@ export class GameDataController {
 
         return games;
     }
+
+    @Get('/overall-score')
+    async getOverallScore() {
+        let overallWins = await this.gameDataService.getOverallScore();
+        return overallWins;
+    }
 }
