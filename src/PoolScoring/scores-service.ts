@@ -4,13 +4,15 @@ import { Score } from './scores.entity';
 import { Repository, MoreThan } from 'typeorm';
 import { AddScoreModel } from './add-score.model';
 import { WinsPerUserModel } from './wins-per-user.model';
+import { GameDataService } from './game-data.service';
 
 @Injectable()
 export class ScoresService {
     constructor(
         @InjectRepository(Score)
         private readonly scoresRepository: Repository<Score>,
-    ) {}
+        private readonly gameDataService: GameDataService
+    ) { }
 
     async FindAllScores(): Promise<Score[]> {
         return await this.scoresRepository.find();
@@ -27,6 +29,16 @@ export class ScoresService {
             stripes: addScoreModel.stripes,
         };
         await this.scoresRepository.save(score);
+    }
+
+    async getCurrentScore(): Promise<WinsPerUserModel> {
+        let id = await this.gameDataService.getCurrentGameId();
+
+        console.log(`Id: ${id}`);
+
+        let wins = this.GetWinsPerUserSinceId(id);
+
+        return wins;
     }
 
     async GetWinsPerUserSinceId(id: number): Promise<WinsPerUserModel> {

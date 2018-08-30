@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PoolScoringModule } from './PoolScoring/pool-scoring.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UsersModule } from 'Users/users.module';
 
 @Module({
     imports: [
@@ -12,11 +13,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
             url: process.env.DATABASE_URL,
             entities: ['src/**/**.entity{.ts,.js}'],
             synchronize: true,
-            // tslint:disable-next-line:quotemark
-            ssl: 'enable',
         }),
+        UsersModule,
     ],
     controllers: [AppController],
     providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

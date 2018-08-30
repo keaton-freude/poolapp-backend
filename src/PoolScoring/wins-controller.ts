@@ -3,16 +3,12 @@ import { ScoresService } from './scores-service';
 
 @Controller('wins')
 export class WinsController {
-    constructor(private scoresService: ScoresService) {}
+    constructor(private scoresService: ScoresService) { }
 
     @Get()
-    async getWinsSinceId(@Query('id') id: number) {
-        // tslint:disable-next-line:no-console
-        console.log(
-            `Getting the number of wins since id ${id} for both Keaton and Chris`,
-        );
+    async getCurrentWinRecord() {
+        let wins = await this.scoresService.getCurrentScore();
 
-        const wins = await this.scoresService.GetWinsPerUserSinceId(0);
         return wins;
     }
 }
