@@ -26,6 +26,7 @@ You must also install Postgres onto your development machine and do the followin
 4. Fill in each of the exported variables in the start-local.sh script with the values you've set above
 5. The Host should be 127.0.0.1, except if hosting somewhere else. The port was set during installation, probably 5432
 6. Do not commit your credentials!
+7. Set a JWT secret, do not use a production one
 
 ```bash
 # Local startup (Bash only, create a .bat if you want windows support,
