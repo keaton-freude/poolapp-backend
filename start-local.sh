@@ -17,3 +17,5 @@ export DATABASE_URL=postgres://$DATABASE_USERNAME:$DATABASE_PASSWORD@$DATABASE_H
 echo "Using DATABASE_URL=$DATABASE_URL"
 
 npm run start:dev
+
+# All changes are automatically detected and hot reloaded
