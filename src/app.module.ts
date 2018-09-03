@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from 'app.controller';
-import { AppService } from 'app.service';
-import { PoolScoringModule } from 'PoolScoring/pool-scoring.module';
-import { AuthModule } from 'Authentication/auth.module';
-import { UserModule } from 'Users/users.module';
+
+import { AuthModule } from 'AuthenticationModule/auth.module';
+import { UserModule } from 'UsersModule/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { GamesModule } from 'Games/games.module';
 
 @Module({
     imports: [
         AuthModule,
-        PoolScoringModule,
+        GamesModule,
         UserModule,
         TypeOrmModule.forRoot({
             type: 'postgres',
@@ -19,6 +19,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         }),
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [],
 })
 export class AppModule {}

@@ -1,21 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Score } from './scores.entity';
+import { Score } from './score.entity';
 import { Repository, MoreThan } from 'typeorm';
 import { AddScoreModel } from './add-score.model';
-import { WinsPerUserModel } from './wins-per-user.model';
-import { GameDataService } from './game-data.service';
+import { CurrentScoreModel } from './current-score.model';
+import { GameDataService } from '../game-data/game-data.service';
 
 @Injectable()
 export class ScoresService {
     constructor(
         @InjectRepository(Score)
         private readonly scoresRepository: Repository<Score>,
-        private readonly gameDataService: GameDataService
-    ) { }
+        private readonly gameDataService: GameDataService,
+    ) {}
 
-    async FindAllScores(): Promise<Score[]> {
-        return await this.scoresRepository.find();
+    async getAllScores(): Promise<Score[]> {
+        return this.scoresRepository.find();
     }
 
     async addScore(addScoreModel: AddScoreModel) {
@@ -31,17 +31,17 @@ export class ScoresService {
         await this.scoresRepository.save(score);
     }
 
-    async getCurrentScore(): Promise<WinsPerUserModel> {
-        let id = await this.gameDataService.getCurrentGameId();
+    async getCurrentScore(): Promise<CurrentScoreModel> {
+        const id = await this.gameDataService.getCurrentGameId();
 
         console.log(`Id: ${id}`);
 
-        let wins = this.GetWinsPerUserSinceId(id);
+        const wins = this.getWinsPerUserSinceId(id);
 
         return wins;
     }
 
-    async GetWinsPerUserSinceId(id: number): Promise<WinsPerUserModel> {
+    async getWinsPerUserSinceId(id: number): Promise<CurrentScoreModel> {
         // Get the number of wins for Keaton, Then Chris
         const keatonWins = await this.scoresRepository.find({
             id: MoreThan(id),

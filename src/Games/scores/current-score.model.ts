@@ -1,6 +1,6 @@
 import { IsNumber } from 'class-validator';
 
-export class WinsPerUserModel {
+export class CurrentScoreModel {
     @IsNumber()
     chrisWins: number;
     @IsNumber()

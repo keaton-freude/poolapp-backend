@@ -1,13 +1,13 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { ScoresService } from './scores-service';
+import { WinsService } from './wins.service';
 
 @Controller('wins')
 export class WinsController {
-    constructor(private scoresService: ScoresService) { }
+    constructor(private winsService: WinsService) {}
 
     @Get()
     async getCurrentWinRecord() {
-        let wins = await this.scoresService.getCurrentScore();
+        const wins = await this.winsService.getCurrentScore();
 
         return wins;
     }

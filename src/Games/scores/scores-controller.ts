@@ -8,7 +8,7 @@ export class ScoresController {
 
     @Get()
     async root() {
-        const scores = await this.scoresService.FindAllScores();
+        const scores = await this.scoresService.getAllScores();
         return scores;
     }
 
