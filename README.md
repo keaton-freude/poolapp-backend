@@ -23,8 +23,13 @@ You must also install Postgres onto your development machine and do the followin
 1. Open pgAdmin 4 and log in to your Postgres installation.
 2. Right-Click "Login/Group Roles" and create a new user. Give this user all permissions and allow them to log in.
 3. Right-Click "Databases" and create a new Database. Give it any name you like, and make the owner the user you created.
+4. Fill in each of the exported variables in the start-local.sh script with the values you've set above
+5. The Host should be 127.0.0.1, except if hosting somewhere else. The port was set during installation, probably 5432
+6. Do not commit your credentials!
 
 ```bash
-# Local startup (Bash only, create a .bat if you want windows support, or better yet just use GitBash or Ubuntu Subsystem because CMD & PowerShell both suck)
+# Local startup (Bash only, create a .bat if you want windows support,
+# or better yet just use GitBash or Ubuntu Subsystem because CMD & PowerShell both suck)
+
 $ ./start-local.sh
 ```
