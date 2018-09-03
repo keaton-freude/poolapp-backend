@@ -4,6 +4,10 @@
     "description": "Backend for the Pool tracker app for tracking pool games between Chris and Keaton",
     "author": "Keaton Freude <freudek90@gmail.com>",
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/keaton-freude/poolapp-backend.git"
+    },
     "engines": {
         "node": "8.11.1"
     },
