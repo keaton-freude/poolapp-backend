@@ -21,7 +21,8 @@
         "test": "jest",
         "test:cov": "jest --coverage",
         "test:e2e": "jest --config ./test/jest-e2e.json",
-        "webpack": "webpack --config webpack.config.js"
+        "webpack": "webpack --config webpack.config.js",
+        "heroku-prebuild": "alias opencollective='echo hello'"
     },
     "dependencies": {
         "@nestjs/common": "^5.0.0",
