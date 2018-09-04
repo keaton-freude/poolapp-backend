@@ -9,7 +9,8 @@
         "url": "https://github.com/keaton-freude/poolapp-backend.git"
     },
     "engines": {
-        "node": "8.11.1"
+        "node": "8.11.4",
+        "npm": "5.6.0"
     },
     "scripts": {
         "format": "prettier --write \"**/*.ts\"",
