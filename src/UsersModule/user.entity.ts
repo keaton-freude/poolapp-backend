@@ -12,7 +12,7 @@ export class User {
     @Column()
     hash: string;
 
-    @OneToMany(Type => Score, score => score.winner)
+    @OneToMany(Type => Score, score => score.winner, { eager: true })
     winningScores?: Score[];
 
     @OneToMany(Type => Score, score => score.breaker)

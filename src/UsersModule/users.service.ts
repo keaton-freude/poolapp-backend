@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '../../node_modules/@nestjs/typeorm';
 import { User } from './user.entity';
-import { Repository } from '../../node_modules/typeorm';
+import { Repository, MoreThan } from '../../node_modules/typeorm';
 
 @Injectable()
 export class UserService {
@@ -14,16 +14,16 @@ export class UserService {
         return await this.userRepository.find();
     }
 
-    async getUser(id: number): Promise<User> {
-        return this.userRepository.findOne(id);
+    async getUser(key: string | number): Promise<User> {
+        if (typeof key === 'number') {
+            return this.userRepository.findOne(key);
+        } else if (typeof key === 'string') {
+            return this.userRepository.findOne({ username: key });
+        }
     }
 
-    getUsers(...ids: number[]): Promise<User>[] {
-        const test = ids.map(e => {
-            return this.getUser(e);
-        });
-
-        return test;
+    getUsers<T extends number | string>(...ids: T[]): Promise<User>[] {
+        return ids.map(e => this.getUser(e));
     }
 
     async createUser(username: string, password: string) {
@@ -44,4 +44,32 @@ export class UserService {
     async validateUser(username: string, password: string) {
         // check hash against user in db
     }
+
+    async getNumberWins(username: string, id: number = 0): Promise<number> {
+        try {
+            // const user = await this.userRepository.findOne({
+            //     where: {
+            //         username,
+            //         id: MoreThan(id),
+            //     },
+            // });
+            // return user.winningScores.length;
+            // const scores = await this.
+        } catch (e) {
+            console.log(
+                `Failed to get number of wins for user ${username}. ${e}`,
+            );
+            return 0;
+        }
+    }
+
+    // async getNumberWinsById(userId: number, id: number = 0): Promise<number> {
+    //     try {
+    //         const user = await this.userRepository.findOne({
+    //             where: {
+
+    //             }
+    //         })
+    //     }
+    // }
 }

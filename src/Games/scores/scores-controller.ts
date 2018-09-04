@@ -14,6 +14,6 @@ export class ScoresController {
 
     @Post()
     async create(@Body() addScore: AddScoreModel) {
-        this.scoresService.addScore(addScore);
+        await this.scoresService.addScore(addScore);
     }
 }

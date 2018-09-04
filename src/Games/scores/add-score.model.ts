@@ -1,17 +1,17 @@
 import { IsString, IsNumber, IsBoolean } from 'class-validator';
 
 export class AddScoreModel {
-    @IsNumber()
-    winner: number;
+    @IsString()
+    winner: string;
 
-    @IsNumber()
-    breaker: number;
+    @IsString()
+    breaker: string;
 
-    @IsNumber()
-    stripes: number;
+    @IsString()
+    stripes: string;
 
-    @IsNumber()
-    solids: number;
+    @IsString()
+    solids: string;
 
     @IsBoolean()
     beatSelf: boolean;

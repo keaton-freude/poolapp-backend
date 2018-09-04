@@ -16,6 +16,7 @@ import { GamesModule } from 'Games/games.module';
             url: process.env.DATABASE_URL,
             entities: ['src/**/**.entity{.ts,.js}'],
             synchronize: true,
+            logging: true,
         }),
     ],
     controllers: [AppController],
