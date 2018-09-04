@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { User } from 'UsersModule/user.entity';
 
 @Entity()
 export class GameData {
@@ -6,8 +7,8 @@ export class GameData {
     id: number;
 
     @Column()
-    startId: number;
+    endId: number;
 
-    @Column()
-    winner: string;
+    @ManyToOne(type => User, user => user.winningGames, { eager: true })
+    winner: User;
 }

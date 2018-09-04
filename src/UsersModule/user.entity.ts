@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Score } from 'Games/scores/score.entity';
+import { GameData } from 'Games/game-data/gamedata.entity';
 
 @Entity()
 export class User {
@@ -12,7 +13,7 @@ export class User {
     @Column()
     hash: string;
 
-    @OneToMany(Type => Score, score => score.winner, { eager: true })
+    @OneToMany(Type => Score, score => score.winner)
     winningScores?: Score[];
 
     @OneToMany(Type => Score, score => score.breaker)
@@ -23,4 +24,7 @@ export class User {
 
     @OneToMany(Type => Score, score => score.solids)
     solidsScores?: Score[];
+
+    @OneToMany(Type => GameData, gameData => gameData.winner)
+    winningGames?: GameData[];
 }

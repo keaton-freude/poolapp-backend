@@ -1,12 +1,13 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { GameData } from "./gamedata.entity";
-import { Repository } from "typeorm";
-import { OverallScore } from "./overall-score";
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { GameData } from './gamedata.entity';
+import { Repository } from 'typeorm';
+import { OverallScore } from './overall-score';
+import { User } from 'UsersModule/user.entity';
 
 @Injectable()
 export class GameDataService {
-    constructor(@InjectRepository(GameData) private readonly gameDataRepository: Repository<GameData>) { }
+    constructor(@InjectRepository(GameData) private readonly gameDataRepository: Repository<GameData>) {}
 
     getAllGames(): Promise<GameData[]> {
         return this.gameDataRepository.find();
@@ -18,27 +19,36 @@ export class GameDataService {
 
         // If empty, then the id is zero, i.e. no games played yet
         // Otherwise, the last row in the table will tell us what id
-        let lastGame = await this.gameDataRepository.findOne(null, {
+        const lastGame = await this.gameDataRepository.findOne(null, {
             order: {
-                id: "DESC"
-            }
+                id: 'DESC',
+            },
         });
+
+        console.log(`${JSON.stringify(lastGame)}`);
 
         let id = 0;
 
         if (lastGame !== undefined) {
-            id = lastGame.startId;
+            id = lastGame.endId;
         }
 
         return id;
     }
 
     async getOverallScore(): Promise<OverallScore> {
-        let games = await this.gameDataRepository.find();
+        const games = await this.gameDataRepository.find();
 
-        let chrisWins = games.filter(game => game.winner === "Chris").length;
-        let keatonWins = games.filter(game => game.winner === "Keaton").length;
+        const chrisWins = games.filter(game => game.winner.username === 'Chris').length;
+        const keatonWins = games.filter(game => game.winner.username === 'Keaton').length;
 
         return new OverallScore(chrisWins, keatonWins);
+    }
+
+    async submitWin(user: User, endId: number): Promise<any> {
+        const game = new GameData();
+        game.winner = user;
+        game.endId = endId;
+        await this.gameDataRepository.save(game);
     }
 }

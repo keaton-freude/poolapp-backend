@@ -35,11 +35,19 @@ export class ScoresService {
             stripes,
         };
 
-        await this.scoresRepository.save(score);
+        const savedScore = await this.scoresRepository.save(score);
 
         // Determine if someone has won a game (their current score is greater than or equal to 50)
         // Only check the winner of the currently submitted game
-        const currentScore = await this.getCurrentScore();
+        const currentGameId = await this.gameDataService.getCurrentGameId();
+        const currentScore = await this.getWinsForUserSinceId(winner.id, currentGameId);
+        console.log(`Current score: ${currentScore}. Current score ID: ${savedScore.id}`);
+        if (currentScore >= 2) {
+            console.log(`${winner.username} has won a round! Incrementing their overall score and resetting the game ID.`);
+
+            // Let the GameData service know who won!
+            this.gameDataService.submitWin(winner, savedScore.id);
+        }
     }
 
     async getCurrentScore(): Promise<CurrentScoreModel> {
@@ -50,13 +58,9 @@ export class ScoresService {
         return wins;
     }
 
-    // async getCurrentNumberWins(userId: number, id: number): Promise<number> {
-    //     return await this.usersService.getNumberWins(userId, id);
-    // }
-
     async getWinsPerUserSinceId(id: number): Promise<CurrentScoreModel> {
         // Figure out the IDs for Chris and Keaton
-        const [chris, keaton] = await Promise.all(this.usersService.getUsers('Keaton', 'Chris'));
+        const [chris, keaton] = await Promise.all(this.usersService.getUsers('Chris', 'Keaton'));
         const [chrisWins, keatonWins] = await Promise.all(this.getWinsForManyUsersSinceId(id, chris.id, keaton.id));
 
         return {
