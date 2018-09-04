@@ -10,11 +10,20 @@ export class UserService {
         @InjectRepository(User) private userRepository: Repository<User>,
     ) {}
 
-    async getUsers(id?: string): Promise<any> {
-        if (id) {
-            return await this.userRepository.findOne(id);
-        }
+    async getAllUsers(): Promise<User[]> {
         return await this.userRepository.find();
+    }
+
+    async getUser(id: number): Promise<User> {
+        return this.userRepository.findOne(id);
+    }
+
+    getUsers(...ids: number[]): Promise<User>[] {
+        const test = ids.map(e => {
+            return this.getUser(e);
+        });
+
+        return test;
     }
 
     async createUser(username: string, password: string) {
@@ -22,9 +31,7 @@ export class UserService {
         await this.checkForValidCredentials(username, password);
 
         bcrypt.hash(password, 10, async (err, hash) => {
-            // username, hash-password, phone, etc...
-            const user: User = { username: username, hash: hash };
-            await this.userRepository.save(user);
+            await this.userRepository.save({ username, hash });
         });
     }
 

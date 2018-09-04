@@ -1,21 +1,30 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import {
+    Entity,
+    Column,
+    PrimaryGeneratedColumn,
+    OneToOne,
+    OneToMany,
+    ManyToOne,
+    JoinColumn,
+} from 'typeorm';
+import { User } from 'UsersModule/user.entity';
 
 @Entity()
 export class Score {
     @PrimaryGeneratedColumn()
-    id: number;
+    id?: number;
 
-    @Column()
-    winner: string;
+    @ManyToOne(type => User, user => user.winningScores)
+    winner: User;
 
-    @Column()
-    breaker: string;
+    @ManyToOne(type => User, user => user.breakingScores)
+    breaker: User;
 
-    @Column()
-    stripes: string;
+    @ManyToOne(type => User, user => user.stripesScores)
+    stripes: User;
 
-    @Column()
-    solids: string;
+    @ManyToOne(type => User, user => user.solidsScores)
+    solids: User;
 
     @Column()
     beatSelf: boolean;
