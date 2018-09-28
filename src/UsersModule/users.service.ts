@@ -12,12 +12,22 @@ export class UserService {
         // make sure the correct users are loaded
         this.getUser('Chris').then((result) => {
             console.log(`Checking for chris result: ${JSON.stringify(result)}`);
+            if (result === undefined) {
+                console.log('We need to create the Chris user.');
+                const user = new User();
+                user.username = "Chris";
+                this.userRepository.save(user);
+            }
         }).catch(err => {
             console.log(`Checking for Chris error: ${err}`);
         });
 
         this.getUser('Keaton').then((result) => {
             console.log(`Checking for keaton result: ${JSON.stringify(result)}`);
+            console.log('We need to create the Keaton user.');
+            const user = new User();
+            user.username = "Keaton";
+            this.userRepository.save(user);
         }).catch(err => {
             console.log(`Checking for Keaton error: ${err}`);
         });

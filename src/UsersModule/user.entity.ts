@@ -4,6 +4,9 @@ import { GameData } from 'Games/game-data/gamedata.entity';
 
 @Entity()
 export class User {
+    constructor() {
+        this.hash = "NONE";
+    }
     @PrimaryGeneratedColumn()
     id?: number;
 
