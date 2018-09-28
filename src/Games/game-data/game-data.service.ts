@@ -30,6 +30,7 @@ export class GameDataService {
         let id = 0;
 
         if (lastGame !== undefined) {
+            console.log('ID was not null!');
             id = lastGame.endId;
         }
 
