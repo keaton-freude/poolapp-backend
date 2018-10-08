@@ -6,11 +6,11 @@
 # Change the below values to your local environment _AND DO NOT COMMIT YOUR CHANGES_
 # Unless you want your username/password leaked (its probably fine to commit a silly username/password)
 
-export DATABASE_USERNAME="user"
+export DATABASE_USERNAME="keaton"
 export DATABASE_PASSWORD="password"
 export DATABASE_HOST="localhost"
 export DATABASE_PORT="5432"
-export DATABASE_NAME="poolapp-local"
+export DATABASE_NAME="poolapp"
 export JWT_SECRET_KEY="THIS_IS_A_SILLY_SECRET"
 
 # Our server expects DATABASE_URL to be exported, as this is how Heroku does it
