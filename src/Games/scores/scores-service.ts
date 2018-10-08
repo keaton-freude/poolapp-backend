@@ -42,7 +42,7 @@ export class ScoresService {
         const currentGameId = await this.gameDataService.getCurrentGameId();
         const currentScore = await this.getWinsForUserSinceId(winner.id, currentGameId);
         console.log(`Current score: ${currentScore}. Current score ID: ${savedScore.id}`);
-        if (currentScore >= 2) {
+        if (currentScore >= 50) {
             console.log(`${winner.username} has won a round! Incrementing their overall score and resetting the game ID.`);
 
             // Let the GameData service know who won!
